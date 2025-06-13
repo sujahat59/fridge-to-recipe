@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Favorites - Fridge to Recipe</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <h1 onclick="window.location.href='index.html'" style="cursor:pointer;">Your Favorite Recipes</h1>
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="favorites.html">Favorites</a> |
+    <a href="about.html">About</a> |
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <div id="favorites"></div>
+
+  <script>
+    const container = document.getElementById("favorites");
+    let saved = JSON.parse(localStorage.getItem("favorites") || "[]");
+
+    function renderFavorites() {
+      container.innerHTML = "";
+      if (saved.length === 0) {
+        container.innerHTML = "<p>You have no saved recipes yet. Go save some from the home page!</p>";
+        return;
+      }
+
+      saved.forEach((recipe, index) => {
+        const box = document.createElement("div");
+        box.className = "recipe-card visible";
+
+        const image = document.createElement("img");
+        image.src = recipe.image;
+        image.alt = recipe.title;
+
+        const content = document.createElement("div");
+        content.className = "recipe-content";
+        content.innerHTML = `
+          <h3>${recipe.title}</h3>
+          <p><strong>Summary:</strong> ${
+            recipe.summary
+              ? recipe.summary.replace(/<[^>]*>/g, '').slice(0, 120)
+              : "No summary available"
+          }...</p>
+          <div class="btn-group">
+            <a href="${recipe.sourceUrl || recipe.spoonacularSourceUrl}" target="_blank">
+              <button>View Full Recipe</button>
+            </a>
+            <button onclick="removeFavorite(${index})">Remove</button>
+          </div>
+        `;
+
+        box.appendChild(image);
+        box.appendChild(content);
+        container.appendChild(box);
+      });
+    }
+
+    function removeFavorite(index) {
+      saved.splice(index, 1);
+      localStorage.setItem("favorites", JSON.stringify(saved));
+      renderFavorites();
+    }
+
+    renderFavorites();
+  </script>
+</body>
+</html>

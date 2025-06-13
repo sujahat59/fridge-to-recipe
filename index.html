@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fridge to Recipe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="top-bar">
+      <span class="tagline">Instant recipes from what you already have</span>
+      <div class="nav-right">
+        <a href="index.html">Home</a>
+        <a href="favorites.html">Favorites</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+        <a href="#" class="help-link">Need Help?</a>
+      </div>
+    </div>
+  
+    <h1>what's in your fridge?</h1>
+  
+    <div class="search-section">
+      <input type="text" id="ingredients" placeholder="" />
+      <select id="cuisine">
+        <option value="">All Cuisines</option>
+        <option value="indian">Indian</option>
+        <option value="italian">Italian</option>
+        <option value="chinese">Chinese</option>
+        <option value="thai">Thai</option>
+        <option value="mexican">Mexican</option>
+        <option value="japanese">Japanese</option>
+        <option value="french">French</option>
+      </select>
+      <button onclick="findRecipes()">Find Recipes</button>
+      <button onclick="getRandomRecipe()">Surprise Me</button>
+      <button onclick="clearResults()">Clear Results</button>
+    </div>
+  
+    <div id="results"></div>
+  
+    <script src="script.js"></script>
+  </body>
+</html>
